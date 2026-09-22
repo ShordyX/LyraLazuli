@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/32528801/README.md)
 <div align="center">
 
 ✨ Lyra Lazuli Life ✨
