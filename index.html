@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lyra Lazuli | La interfaz definitiva para tu PC</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="resources/main/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f3e8ff',
+                            100: '#e9d5ff',
+                            400: '#c084fc', // Morado claro ideal para textos
+                            500: '#a855f7',
+                            600: '#9333ea', // Lazuli Purple
+                            700: '#7e22ce',
+                            900: '#3b0764',
+                            dark: '#05050a', // Deep Space Black
+                            text: '#cbd5e1',
+                            light: '#f8fafc',
+                        }
+                    },
+                    boxShadow: {
+                        'bento': '0 4px 30px rgba(0, 0, 0, 0.5), 0 0 5px rgba(147, 51, 234, 0.3)',
+                        'glow': '0 0 20px rgba(147, 51, 234, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            /* Textura de estrellas/universo con un overlay oscuro para legibilidad */
+            background-color: #05050a;
+            background-image: 
+                linear-gradient(to bottom, rgba(5, 5, 10, 0.8), rgba(5, 5, 10, 0.95)),
+                url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #f8fafc;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav estilo cristal ahumado */
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+        }
+
+        /* Tarjetas translúcidas sobre el fondo espacial */
+        .glass-card {
+            background: rgba(15, 15, 25, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(147, 51, 234, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #c084fc 0%, #9333ea 50%, #4c1d95 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animaciones para el scroll inmediatas y fluidas */
+        .reveal {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-600 selection:text-white flex flex-col min-h-screen">
+
+    <!-- NAVEGACIÓN LIMPIA Y PROFESIONAL -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- LOGO -->
+            <a href="index.html" class="flex items-center outline-none group">
+                <img src="resources/main/favicon.png" alt="Lyra Lazuli Logo" class="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity">
+                <span class="ml-3 font-extrabold text-xl text-white tracking-tight">Lyra <span class="text-brand-500">Lazuli</span></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow relative pt-32 pb-24 px-6 overflow-hidden">
+        <!-- Nebulosas de decoración (Acentos de luz) -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            
+            <!-- HERO SECTION (Elegante y directo) -->
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-[1.15] mb-6 tracking-tight drop-shadow-lg">
+                    El orden de una consola.<br>
+                    <span class="text-gradient drop-shadow-md">El poder de tu PC.</span>
+                </h1>
+                <p class="text-xl text-slate-300 mb-8 leading-relaxed drop-shadow-md">
+                    Lyra Lazuli. Organiza tu biblioteca, optimiza el rendimiento al extremo con un clic, descubre metadatos automáticamente y respalda tu progreso en Google Drive. Diseñado para que simplemente disfrutes.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <!-- BOTÓN DE DESCARGA DIRECTA (GitHub API) -->
+                    <button id="download-btn" onclick="downloadLatestRelease()" class="inline-flex items-center justify-center gap-4 px-8 py-3 bg-purple-900/50 hover:bg-purple-800/70 rounded-xl border border-purple-500/50 backdrop-blur-md shadow-glow transition-all hover:scale-105 w-full sm:w-auto cursor-pointer focus:outline-none">
+                        <span class="relative flex h-3 w-3 shrink-0">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                        </span>
+                        <div class="flex flex-col text-left leading-tight">
+                            <span class="text-xl font-extrabold text-white tracking-wide">Lyra Lazuli V2</span>
+                            <span class="text-sm font-medium text-purple-300">Descargar ahora (Gratis)</span>
+                        </div>
+                    </button>
+                    <a href="#caracteristicas" class="px-8 py-4 bg-white/5 text-white border border-white/20 hover:border-brand-500 hover:bg-white/10 rounded-xl font-bold text-lg transition-all flex items-center justify-center w-full sm:w-auto backdrop-blur-sm">
+                        Descubrir funciones
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARACTERÍSTICAS -->
+            <div id="caracteristicas" class="space-y-32 mt-20">
+                
+                <!-- CARACTERÍSTICA 1: Interfaz y AFK -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+                    <div class="order-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-900/40 text-blue-300 rounded-full text-xs font-bold mb-4 border border-blue-500/30">
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span> Experiencia de Usuario
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-sm">Interfaz Inmersiva y Modo AFK</h3>
+                        <p class="text-slate-300 mb-6 text-lg">
+                            Navega con tu Gamepad o ratón en un entorno libre de distracciones. Lyra Lazuli soporta temas oscuros, desenfoque (blur) estilo cristal y videos de inicio personalizados.
+                        </p>
+                        <div class="glass-card p-6 rounded-xl mb-6">
+                            <h4 class="font-bold text-white mb-3">Ventajas Clave:</h4>
+                            <ul class="space-y-3 text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="gamepad-2" class="w-5 h-5 text-brand-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Soporte nativo para mandos:</strong> Controla toda la interfaz cómodamente desde tu sofá.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="cpu" class="w-5 h-5 text-brand-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Modo AFK inteligente:</strong> Al abrir un juego, la interfaz entra en un sueño profundo liberando RAM y devolviendo todos los recursos a tu partida.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-2 flex justify-center w-full relative group">
+                        <div class="absolute inset-0 bg-brand-600 rounded-2xl transform rotate-2 opacity-20 group-hover:rotate-3 transition-transform duration-300 blur-sm"></div>
+                        <!-- IMAGEN ORIGINAL (con fondo oscuro) -->
+                        <img src="resources/main/ui-dashboard.png" alt="Interfaz de Lyra Lazuli" class="lightbox-trigger cursor-pointer relative w-full h-auto max-h-[450px] object-contain rounded-xl shadow-bento border border-white/10 bg-black/60 p-2 z-10 transition-transform duration-300 group-hover:-translate-y-1 hover:ring-4 hover:ring-brand-500/50 backdrop-blur-md" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxRTFFMkUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNBNkFEQzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkltYWdlbiBkZSBJbnRlcmZhejwvdGV4dD48L3N2Zz4='">
+                    </div>
+                </div>
+
+                <!-- CARACTERÍSTICA 2: Optimización -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+                    <div class="order-2 lg:order-1 flex justify-center w-full relative group">
+                        <div class="absolute inset-0 bg-indigo-600 rounded-2xl transform -rotate-2 opacity-20 group-hover:-rotate-3 transition-transform duration-300 blur-sm"></div>
+                        <img src="resources/main/optimizer-chart.png" alt="Gráfico de optimización" class="lightbox-trigger cursor-pointer relative w-full h-auto max-h-[450px] object-contain rounded-xl shadow-bento border border-white/10 bg-black/60 p-2 z-10 transition-transform duration-300 group-hover:-translate-y-1 hover:ring-4 hover:ring-indigo-500/50 backdrop-blur-md" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxRTFFMkUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNBNkFEQzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkltYWdlbiBkZSBPcHRpbWl6YWNpw7NuPC90ZXh0Pjwvc3ZnPg=='">
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-900/40 text-indigo-300 rounded-full text-xs font-bold mb-4 border border-indigo-500/30">
+                            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Rendimiento Extremo
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-sm">Optimizador de Sistema Integrado</h3>
+                        <p class="text-slate-300 mb-6 text-lg">
+                            Desata el 100% del poder de tu PC. Nuestro Optimizador aplica "tweaks brutales" de forma segura mientras juegas, y revierte tu PC a la normalidad en cuanto cierras la partida.
+                        </p>
+                        <div class="glass-card p-6 rounded-xl mb-6">
+                            <h4 class="font-bold text-white mb-3">Ventajas Clave:</h4>
+                            <ul class="space-y-3 text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="zap" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Steam Lite y Cierre de Tareas:</strong> Cierra navegadores, oculta Explorer.exe y fuerza a Steam a modo "Lite" ahorrando hasta 1GB de RAM.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="crosshair" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Input Lag 0.5ms y Modo eSports:</strong> Reduce la latencia del sistema, desactiva el <em>Throttling</em> de red de Windows y asegura la máxima prioridad de disco I/O.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARACTERÍSTICA 3: Nube y Modo Vigilante -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+                    <div class="order-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-900/40 text-green-300 rounded-full text-xs font-bold mb-4 border border-green-500/30">
+                            <span class="w-2 h-2 rounded-full bg-green-400"></span> Almacenamiento
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-sm">La Nube y Modo Vigilante</h3>
+                        <p class="text-slate-300 mb-6 text-lg">
+                            Dile adiós a perder partidas. Con integración oficial de Google Drive y la inmensa base de datos de Ludusavi (+19,000 juegos), respaldamos tus avances automáticamente.
+                        </p>
+                        <div class="glass-card p-6 rounded-xl mb-6">
+                            <h4 class="font-bold text-white mb-3">Ventajas Clave:</h4>
+                            <ul class="space-y-3 text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="radar" class="w-5 h-5 text-green-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Modo Vigilante (Pesca de Datos):</strong> ¿El juego no está en la base de datos? Lyra Lazuli rastrea discretamente tu disco para detectar exactamente dónde guarda el juego sin afectar los FPS.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="history" class="w-5 h-5 text-green-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Historial Anti-Corrupción:</strong> Guarda automáticamente al salir del juego y mantiene versiones de tu partida de los últimos 2 y 4 días en la nube.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-2 flex justify-center w-full relative group">
+                        <div class="absolute inset-0 bg-green-600 rounded-2xl transform rotate-2 opacity-20 group-hover:rotate-3 transition-transform duration-300 blur-sm"></div>
+                        <img src="resources/main/cloud-sync.png" alt="Sincronización en la nube" class="lightbox-trigger cursor-pointer relative w-full h-auto max-h-[450px] object-contain rounded-xl shadow-bento border border-white/10 bg-black/60 p-2 z-10 transition-transform duration-300 group-hover:-translate-y-1 hover:ring-4 hover:ring-green-500/50 backdrop-blur-md" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxRTFFMkUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNBNkFEQzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkltYWdlbiBkZSB0dSBQcm9ncmVzbzwvdGV4dD48L3N2Zz4='">
+                    </div>
+                </div>
+
+                <!-- CARACTERÍSTICA 4: Metadatos y Personalización -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+                    <div class="order-2 lg:order-1 flex justify-center w-full relative group">
+                        <div class="absolute inset-0 bg-fuchsia-600 rounded-2xl transform -rotate-2 opacity-20 group-hover:-rotate-3 transition-transform duration-300 blur-sm"></div>
+                        <!-- IMAGEN ORIGINAL (con fondo oscuro y hover fucsia) -->
+                        <img src="resources/main/metedata.png" alt="Metadatos y Personalización" class="lightbox-trigger cursor-pointer relative w-full h-auto max-h-[450px] object-contain rounded-xl shadow-bento border border-white/10 bg-black/60 p-2 z-10 transition-transform duration-300 group-hover:-translate-y-1 hover:ring-4 hover:ring-fuchsia-500/50 backdrop-blur-md" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxRTFFMkUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNBNkFEQzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkltYWdlbiBkZSBNZXRhZGF0b3M8L3RleHQ+PC9zdmc+'">
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-fuchsia-900/40 text-fuchsia-300 rounded-full text-xs font-bold mb-4 border border-fuchsia-500/30">
+                            <span class="w-2 h-2 rounded-full bg-fuchsia-400"></span> Personalización
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-sm">Metadatos e Identidad Visual</h3>
+                        <p class="text-slate-300 mb-6 text-lg">
+                            Convierte carpetas aburridas en una galería premium. El Auto-Escáner de Steam añade tus juegos automáticamente, mientras Lyra Lazuli se encarga del arte visual.
+                        </p>
+                        <div class="glass-card p-6 rounded-xl mb-6">
+                            <h4 class="font-bold text-white mb-3">Ventajas Clave:</h4>
+                            <ul class="space-y-3 text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="search" class="w-5 h-5 text-fuchsia-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Buscador Web Integrado:</strong> Descarga Portadas, Logos transparentes y Wallpapers HD conectándose directamente a las APIs de Steam, iTunes y Wallhaven.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="sparkles" class="w-5 h-5 text-fuchsia-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Auto-conversión a WebP:</strong> Lyra Lazuli comprime todo tu arte automáticamente para que la interfaz vuele sin saturar tu almacenamiento.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARACTERÍSTICA 5: Hábitos Gamer -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+                    <div class="order-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-rose-900/40 text-rose-300 rounded-full text-xs font-bold mb-4 border border-rose-500/30">
+                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> Salud y Bienestar
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4 drop-shadow-sm">Asistente de Hábitos Gamer</h3>
+                        <p class="text-slate-300 mb-6 text-lg">
+                            Porque jugar por horas requiere mantenerse al 100%. Lyra Lazuli cuida de ti notificándote sin interrumpir tus partidas competitivas.
+                        </p>
+                        <div class="glass-card p-6 rounded-xl mb-6">
+                            <h4 class="font-bold text-white mb-3">Ventajas Clave:</h4>
+                            <ul class="space-y-3 text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="heart-pulse" class="w-5 h-5 text-rose-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Recordatorios amigables:</strong> Cada 30 minutos recibe una notificación sutil sugiriendo hidratarte, descansar la vista o ajustar tu postura.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="clock" class="w-5 h-5 text-rose-400 shrink-0 mt-0.5"></i> 
+                                    <span><strong class="text-brand-400 font-extrabold">Tracking de Tiempo:</strong> Visualiza el tiempo exacto de tu sesión actual directamente en el Overlay en partida (presionando ALT+5).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-2 flex justify-center w-full relative group">
+                        <div class="absolute inset-0 bg-rose-600 rounded-2xl transform rotate-2 opacity-20 group-hover:rotate-3 transition-transform duration-300 blur-sm"></div>
+                        <div class="relative w-full h-auto min-h-[300px] max-h-[450px] rounded-xl shadow-bento border border-white/10 bg-black/60 p-8 z-10 transition-transform duration-300 group-hover:-translate-y-1 flex flex-col items-center justify-center space-y-6 backdrop-blur-md">
+                            <div class="w-full bg-[#0f0f15] rounded-lg p-5 border-l-4 border-rose-500 flex items-center gap-4 shadow-lg shadow-rose-900/20">
+                                <div class="text-4xl drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]">⏰</div>
+                                <div>
+                                    <h5 class="text-white font-bold text-lg">Usuario, llevas 60 minutos jugando.</h5>
+                                    <p class="text-slate-400 text-sm mt-1">Recuerda estirar las piernas y la espalda un momento para evitar fatiga.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/50 backdrop-blur-md border-t border-white/10 py-8 mt-auto relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-slate-400">
+            <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                <span class="font-bold text-white text-sm">Lyra Lazuli</span>
+                <span class="text-xs ml-4 border-l border-white/20 pl-4">Simplicidad y Poder</span>
+            </div>
+            <div class="text-sm font-medium">
+                La interfaz definitiva para tu PC.
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX (VISOR DE IMÁGENES MODERNO) -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-xl opacity-0 transition-opacity duration-300">
+        <!-- Botón Cerrar -->
+        <button id="close-lightbox" class="absolute top-6 right-6 text-white/80 hover:text-white hover:bg-white/10 transition-colors bg-white/5 border border-white/10 p-3 rounded-full backdrop-blur-md z-10 focus:outline-none">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <!-- Imagen -->
+        <img id="lightbox-img" src="" alt="Lyra Lazuli Preview" class="max-w-[90vw] max-h-[90vh] object-contain rounded-xl shadow-[0_0_50px_rgba(147,51,234,0.3)] transform scale-95 transition-transform duration-300">
+    </div>
+
+    <script>
+        // Desactivar la memoria de scroll del navegador y forzar inicio arriba
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        if (window.location.hash) {
+            history.replaceState(null, null, window.location.pathname);
+        }
+
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // ----------------------------------------------------
+        // LÓGICA DE DESCARGA DIRECTA (GITHUB RELEASE)
+        // ----------------------------------------------------
+        function downloadLatestRelease() {
+            const downloadUrl = 'https://github.com/ShordyX/LyraLazuli/releases/download/V.1.0/lazuli.rar';
+            const btn = document.getElementById('download-btn');
+            const originalContent = btn.innerHTML;
+            
+            // Estado visual de confirmación
+            btn.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5"></i> ¡Descarga iniciada!';
+            btn.disabled = true;
+            lucide.createIcons();
+
+            // Descarga directa inmediata
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Restaurar estado del botón tras 3 segundos
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                lucide.createIcons();
+            }, 3000);
+        }
+
+        // Intersection Observer para las animaciones Reveal
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0, rootMargin: "0px 0px 100px 0px" });
+
+            reveals.forEach(el => observer.observe(el));
+            
+            // --- LÓGICA DEL LIGHTBOX (VISOR DE IMÁGENES) ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeLightboxBtn = document.getElementById('close-lightbox');
+            const triggers = document.querySelectorAll('.lightbox-trigger');
+
+            // Abrir Lightbox
+            const openLightbox = (src) => {
+                lightboxImg.src = src;
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+                
+                // Pequeño delay para que la transición CSS surta efecto después del 'display: flex'
+                setTimeout(() => {
+                    lightbox.classList.remove('opacity-0');
+                    lightbox.classList.add('opacity-100');
+                    lightboxImg.classList.remove('scale-95');
+                    lightboxImg.classList.add('scale-100');
+                }, 10);
+                
+                // Prevenir scroll en la página de fondo
+                document.body.style.overflow = 'hidden';
+            };
+
+            // Cerrar Lightbox
+            const closeLightbox = () => {
+                lightbox.classList.remove('opacity-100');
+                lightbox.classList.add('opacity-0');
+                lightboxImg.classList.remove('scale-100');
+                lightboxImg.classList.add('scale-95');
+                
+                // Esperar a que termine la animación de opacidad antes de ocultar el div
+                setTimeout(() => {
+                    lightbox.classList.add('hidden');
+                    lightbox.classList.remove('flex');
+                    document.body.style.overflow = ''; // Restaurar scroll
+                }, 300);
+            };
+
+            // Asignar eventos de clic a todas las imágenes con la clase 'lightbox-trigger'
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', () => openLightbox(trigger.src));
+            });
+
+            // Cerrar al hacer clic en la "X"
+            closeLightboxBtn.addEventListener('click', closeLightbox);
+            
+            // Cerrar al hacer clic en el fondo oscuro
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+            
+            // Cerrar al presionar la tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
